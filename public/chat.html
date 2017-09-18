@@ -60,6 +60,39 @@
   <script src="/js/libs/mustache.js"></script>
   <script src="/js/libs/deparam.js"></script>
   <script src="/js/chat.js"></script>
+  <script>
+    //start the room process
+    var params = jQuery.deparam(window.location.search);
+    if (params.room) {
+      $('#room').val(params.room).attr('readonly', true);;
+    }
+    var socket = io();
+    socket.on('connect', function () {
+      //console.log('Connected to server');
+      socket.on('updateRoomList', function (rooms){
+        //console.log('rooms list', rooms);
+        if (rooms.length >= 1) {
+          var op = '<option>Select</option>';
+          rooms.forEach(function(room){
+            op += '<option>'+room+'</option>';
+          });
+          jQuery('#roomsList').html(op);
+        } else {
+          jQuery('#roomsList').html('<option disabled="true" selected>No rooms available</option>');
+        }
+      });
+    });
+    $('#roomsList').change(function() {
+      $( "select option:selected" ).each(function() {
+          str = $( this ).val();
+      });
+      if (str !== 'Select') {
+        $( "#room" ).val( str );
+      } else {
+        $( "#room" ).val( '' );
+      }
+    });
+  </script>
 </body>
 
 </html>
