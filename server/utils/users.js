@@ -36,6 +36,13 @@ class Users {
 
     return namesArray;
   }
+  getRoomList(){   
+
+  var roomsArray = this.users.map((user) => user.room);
+  cosole.log(roomsArray);
+
+  return roomsArray;
+  }
 }
 
 module.exports = {Users};
