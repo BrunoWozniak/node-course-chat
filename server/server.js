@@ -18,7 +18,8 @@ app.use(express.static(publicPath));
 
 io.on('connection', (socket) => {
   console.log('New user connected');
-
+  
+  io.emit('updateRoomList', users.getRoomList());
 
   socket.on('join', (params, callback) => {
     params.room = params.room.toUpperCase();
