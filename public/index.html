@@ -2,17 +2,17 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <title>Join | ChatApp</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-  <link rel="stylesheet" href="/css/styles.css">
+   <meta charset="utf-8">
+   <title>Join | ChatApp</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+   <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body class="centered-form">
-  <div class="centered-form__form">
-    <form action="/chat.html">
-      <div class="form-field">
-        <h3>Join a Chat<h3>
+   <div class="centered-form__form">
+      <form action="/chat.html">
+         <div class="form-field">
+            <h3>Join a Chat<h3>
       </div>
       <div class="form-field">
         <label>Display name</label>
@@ -20,13 +20,55 @@
       </div>
       <div class="form-field">
         <label>Room name</label>
-        <input type="text" name="room"/>
+        <input type="text" name="room" id="room"/>
+      </div>
+      <div class="form-field">
+         <label>Available rooms</label>
+         <select id="roomList">
+
+         </select>
       </div>
       <div class="form-field">
         <button>Join</button>
       </div>
     </form>
   </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/libs/jquery-3.1.0.min.js"></script>
+  <script src="/js/libs/deparam.js"></script>
+
+  <script>
+  var socket = io();
+  socket.on('connect', function () {
+    //console.log('Connected to server');
+    socket.on('updateRoomList', function (rooms) {
+      //console.log('rooms list', rooms);
+      if (rooms.length >= 1) {
+        var op = '<option>Select</option>';
+        rooms.forEach(function(room){
+          op += '<option>'+room+'</option>';
+        });
+        jQuery('#roomList').html(op);
+      } else {
+        jQuery('#roomList').html('<option disabled="true" selected>No rooms available</option>');
+      }
+    });
+  });
+
+  $('#roomList').change(function() {
+    $( "select option:selected" ).each(function() {
+        str = $( this ).val();
+    });
+    console.log(str);
+    if (str !== 'Select') {
+      $( "#room" ).val( str );
+    } else {
+      $( "#room" ).val( '' );
+    }
+  });
+ </script>
+
 </body>
 
 </html>
