@@ -37,37 +37,7 @@
   <script src="/socket.io/socket.io.js"></script>
   <script src="/js/libs/jquery-3.1.0.min.js"></script>
   <script src="/js/libs/deparam.js"></script>
-
-  <script>
-  var socket = io();
-  socket.on('connect', function () {
-    //console.log('Connected to server');
-    socket.on('updateRoomList', function (rooms) {
-      //console.log('rooms list', rooms);
-      if (rooms.length >= 1) {
-        var op = '<option>Select</option>';
-        rooms.forEach(function(room){
-          op += '<option>'+room+'</option>';
-        });
-        jQuery('#roomList').html(op);
-      } else {
-        jQuery('#roomList').html('<option disabled="true" selected>No rooms available</option>');
-      }
-    });
-  });
-
-  $('#roomList').change(function() {
-    $( "select option:selected" ).each(function() {
-        str = $( this ).val();
-    });
-    console.log(str);
-    if (str !== 'Select') {
-      $( "#room" ).val( str );
-    } else {
-      $( "#room" ).val( '' );
-    }
-  });
- </script>
+  <script src="/js/join.js"></script>
 
 </body>
 
