@@ -2,16 +2,18 @@ var socket = io();
 
 socket.on('connect', function() {
    socket.on('updateRoomList', function(rooms) {
-      if (rooms.length >= 1) {
+      if (rooms.length) {
+         // console.log('There are rooms');
          var roomList = '<option>Select</option>';
          rooms.forEach(function(room) {
-            roomList.concat('<option>', room, '</option>');
+            roomList = roomList.concat('<option>', room, '</option>');
          });
+         // console.log('roomList = ', roomList);
          jQuery('#roomList')
             .html(roomList);
       } else {
-         console.log('No room available');
-         alert('No room available');
+         // console.log('No room available');
+         // alert('No room available');
          jQuery('#roomList')
             .html('<option disabled="true" selected>No room available</option>');
       }
