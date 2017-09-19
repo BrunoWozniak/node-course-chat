@@ -3,12 +3,12 @@ var socket = io();
 socket.on('connect', function() {
    socket.on('updateRoomList', function(rooms) {
       if (rooms.length >= 1) {
-         var op = '<option>Select</option>';
+         var roomList = '<option>Select</option>';
          rooms.forEach(function(room) {
-            op += '<option>' + room + '</option>';
+            roomList.concat('<option>', room, '</option>');
          });
          jQuery('#roomList')
-            .html(op);
+            .html(roomList);
       } else {
          console.log('No room available');
          alert('No room available');
