@@ -33,11 +33,11 @@ io.on('connection', (socket) => {
          return callback('Name and room name are required.');
       }
 
-      if (getUserList(params.room)
+      if (users.getUserList(params.room)
          .some((element, index) => {
             return element === params.name;
          })) {
-         return callback('Name already used.');
+         return callback(`${params.name} already used in room ${params.room}.`);
       }
 
       function isBiggerThan10(element, index, array) {
