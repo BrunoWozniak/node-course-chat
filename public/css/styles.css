@@ -81,7 +81,8 @@ button:disabled {
     border: 1px solid #e1e1e1;
     padding: 10px;
     height:30px;
-    line-height:30px
+    line-height:30px;
+    background: #f4f4f4;
 }
 .chat {
     display: flex
